@@ -1,0 +1,9 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t xheartean/docker-course -f Dockerfile.dev .
+
+scripts:
+  - docker run -e CI=true xheartean/docker-course npm run test -- --coverage
