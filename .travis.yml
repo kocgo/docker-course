@@ -7,3 +7,18 @@ before_install:
 
 scripts:
   - docker run -e CI=true xheartean/docker-course npm run test -- --coverage
+
+deploy:
+  provider: elasticbeanstalk
+  region: "us-east-1"
+  app: "docker-course"
+  env: "DockerCourse-env"
+  # Bucket is the storage, where your app is stored in Amazon S3
+  bucket_name: "elasticbeanstalk-us-east-1-262045094848"
+  bucket_path: "docker-course"
+  # Only deploy when its pushed to master
+  on:
+    branch: master
+  # These are stored in TRAVIS CI (website) Settings
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY
